@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Sufiyan Abrar — Web Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#0B0E13;
+    --surface:#12161F;
+    --surface-2:#171C27;
+    --line:#242B38;
+    --text:#E6E8EC;
+    --muted:#8A93A6;
+    --green:#3ECF8E;
+    --amber:#F0A94E;
+    --font-display:'Space Grotesk', 'Segoe UI', sans-serif;
+    --font-body:'Inter', 'Segoe UI', sans-serif;
+    --font-mono:'JetBrains Mono', monospace;
+    box-sizing:border-box;
+    padding-top:env(safe-area-inset-top,0px);
+    padding-bottom:env(safe-area-inset-bottom,0px);
+  }
+  *{box-sizing:border-box;}
+  html{scroll-behavior:smooth; scroll-padding-top:env(safe-area-inset-top,0px);}
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background:var(--ink);
+    color:var(--text);
+    font-family:var(--font-body);
+    line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  a{color:inherit;}
+  ::selection{background:var(--green); color:#06110C;}
+
+  .wrap{max-width:1040px; margin:0 auto; padding:0 28px;}
+
+  /* NAV */
+  header.nav{
+    position:sticky; top:env(safe-area-inset-top,0px); z-index:50;
+    background:rgba(11,14,19,0.75);
+    backdrop-filter:blur(10px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{display:flex; align-items:center; justify-content:space-between; padding:16px 28px; max-width:1040px; margin:0 auto;}
+  .logo{font-family:var(--font-mono); font-size:15px; color:var(--text); text-decoration:none; letter-spacing:0.02em;}
+  .logo span{color:var(--green);}
+  nav.links{display:flex; gap:28px;}
+  nav.links a{font-size:14px; color:var(--muted); text-decoration:none; transition:color .2s;}
+  nav.links a:hover{color:var(--text);}
+  .nav-cta{font-family:var(--font-mono); font-size:13px; color:var(--ink); background:var(--green); padding:8px 16px; border-radius:6px; text-decoration:none; font-weight:600;}
+
+  /* HERO */
+  .hero{padding:88px 0 64px; display:grid; grid-template-columns:1.05fr 0.95fr; gap:56px; align-items:center;}
+  .kicker{font-family:var(--font-mono); font-size:13px; color:var(--green); margin:0 0 18px;}
+  .kicker::before{content:"~/"; color:var(--muted);}
+  h1.hero-title{
+    font-family:var(--font-display); font-weight:700;
+    font-size:clamp(34px, 5vw, 52px); line-height:1.08; margin:0 0 20px; letter-spacing:-0.01em;
+  }
+  .hero-title em{font-style:normal; color:var(--green);}
+  .hero p.lede{color:var(--muted); font-size:16.5px; max-width:46ch; margin:0 0 30px;}
+  .hero-actions{display:flex; gap:14px; flex-wrap:wrap;}
+  .btn{
+    font-family:var(--font-body); font-size:14.5px; font-weight:600;
+    padding:12px 22px; border-radius:7px; text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    transition:transform .15s ease, background .15s ease, border-color .15s ease;
+  }
+  .btn-primary{background:var(--green); color:#06110C;}
+  .btn-primary:hover{transform:translateY(-2px);}
+  .btn-ghost{background:transparent; color:var(--text); border:1px solid var(--line);}
+  .btn-ghost:hover{border-color:var(--green); transform:translateY(-2px);}
+
+  /* Terminal */
+  .term{
+    background:var(--surface); border:1px solid var(--line); border-radius:10px;
+    overflow:hidden; box-shadow:0 30px 60px -30px rgba(0,0,0,0.6);
+  }
+  .term-bar{display:flex; align-items:center; gap:7px; padding:11px 14px; border-bottom:1px solid var(--line); background:var(--surface-2);}
+  .dot{width:10px; height:10px; border-radius:50%;}
+  .dot.r{background:#EB5757;} .dot.y{background:#F2C94C;} .dot.g{background:#3ECF8E;}
+  .term-title{font-family:var(--font-mono); font-size:12px; color:var(--muted); margin-left:6px;}
+  .term-body{padding:22px 20px; font-family:var(--font-mono); font-size:13.5px; min-height:230px;}
+  .term-body .prompt{color:var(--muted);}
+  .term-body .prompt::before{content:"$ "; color:var(--green);}
+  #typed{white-space:pre-wrap; color:var(--text);}
+  .cursor{display:inline-block; width:8px; height:16px; background:var(--green); vertical-align:text-bottom; animation:blink 1s step-end infinite;}
+  @keyframes blink{50%{opacity:0;}}
+  .k{color:#C792EA;} .s{color:#F0A94E;} .c{color:#6B7488;} .f{color:#82AAFF;}
+
+  section{padding:64px 0;}
+  .section-head{margin-bottom:36px;}
+  .num{font-family:var(--font-mono); font-size:13px; color:var(--green); display:block; margin-bottom:8px;}
+  h2{font-family:var(--font-display); font-size:clamp(24px,3vw,32px); margin:0; letter-spacing:-0.01em;}
+  hr.rule{border:none; border-top:1px solid var(--line); margin:0 0 64px;}
+
+  /* About */
+  .about{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start;}
+  .about p{color:var(--muted); font-size:15.5px; margin:0 0 16px;}
+  .about strong{color:var(--text); font-weight:600;}
+  .stack-list{display:flex; flex-direction:column; gap:0;}
+  .stack-row{display:flex; justify-content:space-between; padding:13px 0; border-bottom:1px solid var(--line); font-size:14.5px;}
+  .stack-row:first-child{border-top:1px solid var(--line);}
+  .stack-row .label{color:var(--muted);}
+  .stack-row .val{font-family:var(--font-mono); font-size:13px; text-align:right; color:var(--text);}
+
+  /* Skills */
+  .skills-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:10px; overflow:hidden;}
+  .skill-cell{background:var(--surface); padding:22px 20px;}
+  .skill-cell h3{font-family:var(--font-display); font-size:16px; margin:0 0 10px;}
+  .skill-cell p{color:var(--muted); font-size:13.5px; margin:0;}
+
+  /* Timeline */
+  .timeline{position:relative; padding-left:26px;}
+  .timeline::before{content:""; position:absolute; left:5px; top:6px; bottom:6px; width:1px; background:var(--line);}
+  .tl-item{position:relative; padding-bottom:34px;}
+  .tl-item:last-child{padding-bottom:0;}
+  .tl-item::before{content:""; position:absolute; left:-26px; top:4px; width:11px; height:11px; border-radius:50%; background:var(--ink); border:2px solid var(--green);}
+  .tl-when{font-family:var(--font-mono); font-size:12.5px; color:var(--green); margin-bottom:4px; display:block;}
+  .tl-title{font-family:var(--font-display); font-size:17px; margin:0 0 6px;}
+  .tl-desc{color:var(--muted); font-size:14.5px; margin:0; max-width:60ch;}
+
+  /* Goals */
+  .goals{display:grid; grid-template-columns:repeat(3,1fr); gap:20px;}
+  .goal-card{border:1px solid var(--line); border-radius:10px; padding:24px 20px; background:var(--surface);}
+  .goal-card .g-icon{width:34px; height:34px; margin-bottom:16px;}
+  .goal-card h3{font-family:var(--font-display); font-size:16px; margin:0 0 8px;}
+  .goal-card p{color:var(--muted); font-size:13.5px; margin:0;}
+
+  /* Contact */
+  .contact-box{
+    border:1px solid var(--line); border-radius:14px; padding:48px 40px; text-align:center;
+    background:radial-gradient(circle at 50% 0%, rgba(62,207,142,0.08), transparent 60%), var(--surface);
+  }
+  .contact-box h2{margin-bottom:14px;}
+  .contact-box p{color:var(--muted); max-width:48ch; margin:0 auto 28px;}
+  .contact-links{display:flex; justify-content:center; gap:14px; flex-wrap:wrap;}
+
+  footer{padding:32px 0 48px; text-align:center; color:var(--muted); font-size:13px; font-family:var(--font-mono);}
+
+  @media (max-width:820px){
+    .hero{grid-template-columns:1fr; padding-top:56px;}
+    .about{grid-template-columns:1fr;}
+    .skills-grid{grid-template-columns:1fr 1fr;}
+    .goals{grid-template-columns:1fr;}
+    nav.links{display:none;}
+  }
+  @media (max-width:520px){
+    .skills-grid{grid-template-columns:1fr;}
+    .contact-box{padding:36px 20px;}
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    html{scroll-behavior:auto;}
+    .cursor{animation:none;}
+    *{transition:none !important;}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a href="#top" class="logo">sufiyan<span>.dev</span></a>
+    <nav class="links">
+      <a href="#about">About</a>
+      <a href="#skills">Skills</a>
+      <a href="#journey">Journey</a>
+      <a href="#goals">Goals</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Contact</a>
+  </div>
+</header>
+
+<div class="wrap" id="top">
+  <section class="hero">
+    <div>
+      <p class="kicker">whoami</p>
+      <h1 class="hero-title">Sufiyan Abrar builds <em>clean, working</em> web products.</h1>
+      <p class="lede">Web developer from Karachi, Pakistan — currently completing an Advanced Diploma in Software Engineering at Aptech, and shipping full‑stack projects along the way.</p>
+      <div class="hero-actions">
+        <a href="#contact" class="btn btn-primary">Start a project</a>
+        <a href="#skills" class="btn btn-ghost">See my stack</a>
+      </div>
+    </div>
+    <div class="term">
+      <div class="term-bar">
+        <div class="dot r"></div><div class="dot y"></div><div class="dot g"></div>
+        <span class="term-title">about.js</span>
+      </div>
+      <div class="term-body">
+        <span class="prompt">node about.js</span><br><br>
+        <span id="typed"></span><span class="cursor"></span>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap" id="about">
+  <section>
+    <div class="section-head"><span class="num">01</span><h2>About</h2></div>
+    <hr class="rule" style="margin-bottom:36px;">
+    <div class="about">
+      <div>
+        <p>I'm a <strong>web developer</strong> based in Karachi, working mainly across the PHP and JavaScript ecosystems. I like turning a vague idea into something that actually runs in a browser — cleanly built, responsive, and easy for the next developer to read.</p>
+        <p>Alongside my technical work, I've spent time in <strong>customer communication and chat‑based sales</strong>, which sharpened how I listen to a client's actual problem before jumping to a solution — a habit that carries straight into how I scope and build projects.</p>
+        <p>I'm a quick learner and comfortable picking up new tools when a project calls for it, with an eye on eventually working with <strong>international clients</strong> and running my own development studio.</p>
+      </div>
+      <div class="stack-list">
+        <div class="stack-row"><span class="label">Frontend</span><span class="val">HTML · CSS · JS · Bootstrap · jQuery</span></div>
+        <div class="stack-row"><span class="label">Backend</span><span class="val">PHP · Laravel</span></div>
+        <div class="stack-row"><span class="label">Data</span><span class="val">MySQL · SQL Server</span></div>
+        <div class="stack-row"><span class="label">Other</span><span class="val">API integration · web scraping</span></div>
+        <div class="stack-row"><span class="label">Currently</span><span class="val">ADSE @ Aptech</span></div>
+        <div class="stack-row"><span class="label">Based in</span><span class="val">Karachi, PK</span></div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap" id="skills">
+  <section>
+    <div class="section-head"><span class="num">02</span><h2>What I work with</h2></div>
+    <hr class="rule" style="margin-bottom:36px;">
+    <div class="skills-grid">
+      <div class="skill-cell"><h3>Responsive Web Design</h3><p>Layouts that hold up from a wide desktop down to a small phone screen, no exceptions.</p></div>
+      <div class="skill-cell"><h3>Laravel &amp; PHP</h3><p>Server-side logic, routing and data handling for real applications, not just demos.</p></div>
+      <div class="skill-cell"><h3>MySQL &amp; SQL Server</h3><p>Schema design and queries that stay fast and sane as data grows.</p></div>
+      <div class="skill-cell"><h3>API Integration</h3><p>Connecting a front end to third-party and internal APIs without breaking on edge cases.</p></div>
+      <div class="skill-cell"><h3>Bug Fixing</h3><p>Comfortable reading someone else's code, finding the actual root cause, and fixing it properly.</p></div>
+      <div class="skill-cell"><h3>Web Scraping</h3><p>Basic scraping workflows for pulling structured data off the web when an API isn't available.</p></div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap" id="journey">
+  <section>
+    <div class="section-head"><span class="num">03</span><h2>Journey so far</h2></div>
+    <hr class="rule" style="margin-bottom:36px;">
+    <div class="timeline">
+      <div class="tl-item">
+        <span class="tl-when">Ongoing</span>
+        <h3 class="tl-title">ADSE — Aptech</h3>
+        <p class="tl-desc">Pursuing the Advanced Diploma in Software Engineering, building up full-stack skills across the PHP and JavaScript stacks.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-when">Alongside</span>
+        <h3 class="tl-title">Customer communication &amp; chat-based sales</h3>
+        <p class="tl-desc">Handled client conversations and sales chats, building communication and problem-solving skills that now shape how I work with clients.</p>
+      </div>
+      <div class="tl-item">
+        <span class="tl-when">Throughout</span>
+        <h3 class="tl-title">Hands-on web development</h3>
+        <p class="tl-desc">Built experience across HTML, CSS, JavaScript, Bootstrap, jQuery, PHP, Laravel, MySQL and SQL Server through practical, applied work.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap" id="goals">
+  <section>
+    <div class="section-head"><span class="num">04</span><h2>Where I'm headed</h2></div>
+    <hr class="rule" style="margin-bottom:36px;">
+    <div class="goals">
+      <div class="goal-card">
+        <svg class="g-icon" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="1.6"><path d="M12 2 3 7l9 5 9-5-9-5Z"/><path d="M3 12l9 5 9-5"/><path d="M3 17l9 5 9-5"/></svg>
+        <h3>Full-stack mastery</h3>
+        <p>Sharpening both ends of the stack to deliver complete, production-ready products end to end.</p>
+      </div>
+      <div class="goal-card">
+        <svg class="g-icon" viewBox="0 0 24 24" fill="none" stroke="#F0A94E" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M2.5 12h19M12 2.5c2.5 2.7 4 6 4 9.5s-1.5 6.8-4 9.5c-2.5-2.7-4-6-4-9.5s1.5-6.8 4-9.5Z"/></svg>
+        <h3>International clients</h3>
+        <p>Working with teams and clients beyond Pakistan, delivering quality that travels anywhere.</p>
+      </div>
+      <div class="goal-card">
+        <svg class="g-icon" viewBox="0 0 24 24" fill="none" stroke="#3ECF8E" stroke-width="1.6"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>
+        <h3>My own agency</h3>
+        <p>Building toward a software development studio of my own, built on solid, well-run projects.</p>
+      </div>
+    </div>
+  </section>
+</div>
+
+<div class="wrap" id="contact">
+  <section>
+    <div class="contact-box">
+      <h2>Let's build something.</h2>
+      <p>Open to freelance work, junior/full-stack roles, and collaborations — whether it's a new site, a Laravel back end, or fixing something that's currently broken.</p>
+      <div class="contact-links">
+        <a href="mailto:hello@example.com" class="btn btn-primary">Email me</a>
+        <a href="#" class="btn btn-ghost">LinkedIn</a>
+        <a href="#" class="btn btn-ghost">GitHub</a>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer>Sufiyan Abrar — Karachi, Pakistan</footer>
+
+<script>
+(function(){
+  var lines = [
+    { t: 'const ', c:'k' }, { t: 'developer', c:'f' }, { t: ' = {\n', c:'' },
+    { t: '  name: ', c:'' }, { t: "'Sufiyan Abrar'", c:'s' }, { t: ',\n', c:'' },
+    { t: '  role: ', c:'' }, { t: "'Web Developer'", c:'s' }, { t: ',\n', c:'' },
+    { t: '  based_in: ', c:'' }, { t: "'Karachi, Pakistan'", c:'s' }, { t: ',\n', c:'' },
+    { t: '  studying: ', c:'' }, { t: "'ADSE @ Aptech'", c:'s' }, { t: ',\n', c:'' },
+    { t: '  stack: ', c:'' }, { t: "['PHP', 'Laravel', 'JS', 'MySQL']", c:'s' }, { t: ',\n', c:'' },
+    { t: '  status: ', c:'' }, { t: "'open to work'", c:'s' }, { t: '\n};', c:'' }
+  ];
+  var full = lines.map(function(l){
+    var safe = l.t.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+    return l.c ? '<span class="'+l.c+'">'+safe+'</span>' : safe;
+  }).join('');
+  var target = document.getElementById('typed');
+  var raw = lines.map(function(l){return l.t;}).join('');
+  var i = 0;
+  var reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (reduced) {
+    target.innerHTML = full;
+  } else {
+    function tick(){
+      if (i <= raw.length) {
+        var slice = raw.slice(0, i);
+        // re-wrap slice with color spans by rebuilding progressively
+        var built = '', consumed = 0;
+        for (var j=0; j<lines.length; j++){
+          var seg = lines[j].t;
+          if (consumed + seg.length <= slice.length) {
+            var safe = seg.replace(/&/g,'&amp;').replace(/</g,'&lt;');
+            built += lines[j].c ? '<span class="'+lines[j].c+'">'+safe+'</span>' : safe;
+            consumed += seg.length;
+          } else {
+            var partial = seg.slice(0, Math.max(0, slice.length - consumed)).replace(/&/g,'&amp;').replace(/</g,'&lt;');
+            built += lines[j].c ? '<span class="'+lines[j].c+'">'+partial+'</span>' : partial;
+            break;
+          }
+        }
+        target.innerHTML = built;
+        i += 2;
+        setTimeout(tick, 14);
+      }
+    }
+    tick();
+  }
+})();
+</script>
+
+</body>
+</html>
